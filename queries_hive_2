@@ -1,0 +1,68 @@
+create table data_sample_new (bid_id string,traffictype string,publisher_id string, app_site_id string, app_site_cat ARRAY<String>, pos string, bidfloor int, time bigint, age int,Gender string,OS string,os_version string, model string,manufacturer string,carrier string,device_type string,
+dpid string,device_ip string,country string,latitude double, longitude double,zipcode int,geo_type string, campaign_id BIGINT,creative_id int,creative_type int,creative_category ARRAY<string>,exchange_bid float,outcome string)
+                         row format delimited fields terminated by ','
+collection items terminated by '#';
+
+
+
+select coalesce(creative_category[1],'NA') from data_sample_new;
+
+
+select coalesce(creative_category[1],'NA') from data_sample_new;
+
+
+select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')),age,count(age) as count from data_sample_new group by age,creative_category ;
+
+insert overwrite local directory '/home/siri/applift/gendervscreatfinal/' row format delimited fields terminated by ','  select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')) as creative_category_app,regexp_replace(gender, '0', 'NI'),count(gender) as count from data_sample_final group by gender,creative_category ;
+
+
+insert overwrite local directory '/home/siri/applift/rangefinal13-19.csv' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')) as creative_category,count(age) as teenager from data_sample_final where age between 13 and 19 group by creative_category;
+
+insert local directory '/home/siri/applift/range13-19.csv' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')) as creative_category,count(age) as teenager from data_sample_new where age between 20 and 30 group by creative_category;
+
+insert overwrite local directory '/home/siri/applift/range31-40.csv/' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')) as creative_category,count(age) as teenager from data_sample_new where age between 31 and 40 group by creative_category;
+
+
+insert overwrite local directory '/home/siri/applift/gendervscreat/' row format delimited fields terminated by ','  select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')) as creative_category_app,,count(gender) as count from data_sample_new group by gender,creative_category ;
+
+insert into local directory '/home/siri/applift/range41-60final.csv' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')) as creative_category,count(age) as teenager from data_sample_final where age between 41 and 60 group by creative_category;
+
+insert overwrite local directory '/home/siri/applift/range31exp.csv/' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA'),',31-40') as creative_category,count(age) as teenager from data_sample_new where age between 31 and 40 group by creative_category;
+
+
+insert overwrite local directory '/home/siri/applift/range31-40final.csv/' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA'),',31-40') as creative_category,count(age) as midage from data_sample_final where age between 31 and 40 group by creative_category;
+
+insert overwrite local directory '/home/siri/applift/range20-30final.csv/' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA'),',20-30') as creative_category,count(age) as youth from data_sample_final where age between 20 and 30 group by creative_category;
+
+
+insert overwrite local directory '/home/siri/applift/rangefinal13-19.csv/' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA'),',13-19') as creative_category,count(age) as teenage from data_sample_final where age between 13 and 19 group by creative_category;
+
+
+
+
+
+insert overwrite local directory '/home/siri/applift/rangefinal41-65.csv/' row format delimited fields terminated by ','select concat(creative_category[0],'--',coalesce(creative_category[1],'NA'),',41-65') as creative_category,count(age) as from data_sample_final where age between 41 and 65 group by creative_category; group by gender,creative_category ;
+insert overwrite local directory '/home/siri/applift/catvsappsite/' row format delimited fields terminated by ',' select concat(app_site_cat[0],'--',coalesce(app_site_cat [1],'NA')) as appsite_category from data_sample_final where outcome = 'c'group by creative_categgory;
+
+
+
+
+insert overwrite local directory '/home/siri/applift/rangeoutput/' row format delimited fields terminated by ',' select category,range,age from rangeagenew;
+
+
+insert overwrite table crvsappfin select concat(creative_category[0],'--',coalesce(creative_category[1],'NA')) as creative_category_app,concat(app_site_cat[0],'--',coalesce(app_site_cat [1],'NA')) as appsite_category from data_sample_final where outcome = 'c'group by creative_category,app_site_cat;
+
+create table crvsappnew(output MAP<STRING,STRING>) row format delimited map keys terminated by ',';
+
+
+insert overwrite local directory '/home/siri/applift/output1/' row format delimited fields terminated by ',' select * from crvsapp
+
+
+
+
+
+
+
+
+
+

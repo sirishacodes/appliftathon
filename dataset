@@ -1,0 +1,31 @@
+
+Plotting points on WorldMap(Country wise)
+Condition: var2<-data3$Country[data3$Country=="USA"]
+var3<- var2$
+
+newpoints <- ggmap(newmap) + geom_point(aes(x = var1$Longitude, y = var1$Latitude))
+> mappoints <-newpoints + scale_size_area(breaks = sqrt(c(1, 5, 10, 50, 100, 500)))
+> mappoints
+
+newmap <- get_map(location='USA',zoom=4)
+
+
+
+Reducing file size:
+data<-read.csv("path",sep="/t",header=FALSE,nrows=records you want)
+Adding header
+names(data)<-c(h1,h2,h3........)
+names(data)
+
+Fetching particular row records of a column
+
+
+M1<-length(data3$Country[data3$Country =="USA"]) /*Calculate number of records of this row*/
+
+
+Plotting Graphs:
+plot(x,y,type="l",col="colour") /*here x and y represents coordinates*/
+
+
+
+
